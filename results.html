@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submitted Responses</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .response-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .response {
+      width: calc(50% - 10px);
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .response img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      float: left;
+    }
+
+    .response-info {
+      overflow: hidden;
+    }
+
+    .response-info p {
+      margin: 0;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Submitted Responses</h1>
+
+  <div id="responsesContainer" class="response-container"></div>
+
+  <script>
+    // Retrieve responses from local storage
+    var responses = JSON.parse(localStorage.getItem('responses')) || [];
+
+    // Display the responses
+    var responsesContainer = document.getElementById('responsesContainer');
+
+    for (var i = 0; i < responses.length; i++) {
+      var response = responses[i];
+
+      var responseDiv = document.createElement('div');
+      responseDiv.className = 'response';
+
+      for (var j = 0; j < response.images.length; j++) {
+        var imageElement = document.createElement('img');
+        imageElement.src = response.images[j];
+        imageElement.alt = 'Uploaded Image';
+
+        responseDiv.appendChild(imageElement);
+      }
+
+      var responseInfoDiv = document.createElement('div');
+      responseInfoDiv.className = 'response-info';
+
+      var nameParagraph = document.createElement('p');
+      nameParagraph.textContent = 'Name: ' + response.name;
+
+      var phoneParagraph = document.createElement('p');
+      phoneParagraph.textContent = 'Phone Number: ' + response.phone;
+
+      var addressParagraph = document.createElement('p');
+      addressParagraph.textContent = 'Address: ' + response.address;
+
+      responseInfoDiv.appendChild(nameParagraph);
+      responseInfoDiv.appendChild(phoneParagraph);
+      responseInfoDiv.appendChild(addressParagraph);
+
+      responseDiv.appendChild(responseInfoDiv);
+
+      responsesContainer.appendChild(responseDiv);
+    }
+
+    // Clear the responses from local storage
+    // localStorage.removeItem('responses');
+  </script>
+</body>
+</html>
